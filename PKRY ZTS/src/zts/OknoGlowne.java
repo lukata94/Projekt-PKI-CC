@@ -22,6 +22,7 @@ import java.awt.Insets;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPasswordField;
 
 /**
  * Klasa okienka generatora CC.
@@ -32,7 +33,7 @@ public class OknoGlowne extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField passwordField;
 	
 	/**
 	 * Funkcja main.
@@ -64,11 +65,12 @@ public class OknoGlowne extends JFrame {
 		contentPane.setLayout(sl_contentPane);
 		
 		JLabel lblNazwaUzytkownika = new JLabel("Nazwa u\u017Cytkownika");
+		sl_contentPane.putConstraint(SpringLayout.WEST, lblNazwaUzytkownika, 10, SpringLayout.WEST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblNazwaUzytkownika, -173, SpringLayout.EAST, contentPane);
 		textField = new JTextField();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, textField, 7, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, textField, 157, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, textField, -10, SpringLayout.EAST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, lblNazwaUzytkownika, -6, SpringLayout.WEST, textField);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, textField, -3, SpringLayout.NORTH, lblNazwaUzytkownika);
+		sl_contentPane.putConstraint(SpringLayout.WEST, textField, 6, SpringLayout.EAST, lblNazwaUzytkownika);
+		sl_contentPane.putConstraint(SpringLayout.EAST, textField, -30, SpringLayout.EAST, contentPane);
 		JButton btnGenerujKlucze = new JButton("Generuj klucze");
 		sl_contentPane.putConstraint(SpringLayout.WEST, btnGenerujKlucze, 58, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnGenerujKlucze, -10, SpringLayout.SOUTH, contentPane);
@@ -78,7 +80,7 @@ public class OknoGlowne extends JFrame {
 				Generator gen;
 				try {
 					gen = new Generator(textField.getText());
-					gen.GeneracjaCertyfikatu(textField_1.getText());
+					gen.GeneracjaCertyfikatu(String.valueOf(passwordField.getPassword()));
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.toString(), "Error",
                             JOptionPane.ERROR_MESSAGE);
@@ -88,23 +90,23 @@ public class OknoGlowne extends JFrame {
 		contentPane.add(btnGenerujKlucze);
 		
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblNazwaUzytkownika, 10, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, lblNazwaUzytkownika, 10, SpringLayout.WEST, contentPane);
 		contentPane.add(lblNazwaUzytkownika);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblHaso = new JLabel("Has\u0142o u\u017Cytkownika");
+		sl_contentPane.putConstraint(SpringLayout.NORTH, btnGenerujKlucze, 17, SpringLayout.SOUTH, lblHaso);
+		sl_contentPane.putConstraint(SpringLayout.EAST, lblHaso, 0, SpringLayout.EAST, lblNazwaUzytkownika);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lblHaso, 25, SpringLayout.SOUTH, lblNazwaUzytkownika);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lblHaso, 0, SpringLayout.WEST, lblNazwaUzytkownika);
 		contentPane.add(lblHaso);
 		
-		textField_1 = new JTextField();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, btnGenerujKlucze, 19, SpringLayout.SOUTH, textField_1);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, textField_1, -3, SpringLayout.NORTH, lblHaso);
-		sl_contentPane.putConstraint(SpringLayout.WEST, textField_1, 0, SpringLayout.WEST, textField);
-		sl_contentPane.putConstraint(SpringLayout.EAST, textField_1, 0, SpringLayout.EAST, textField);
-		textField_1.setColumns(10);
-		contentPane.add(textField_1);
+		passwordField = new JPasswordField();
+		sl_contentPane.putConstraint(SpringLayout.NORTH, passwordField, 46, SpringLayout.NORTH, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.WEST, passwordField, 6, SpringLayout.EAST, lblHaso);
+		sl_contentPane.putConstraint(SpringLayout.EAST, passwordField, -30, SpringLayout.EAST, contentPane);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, textField, -19, SpringLayout.NORTH, passwordField);
+		contentPane.add(passwordField);
 
 	}
 }

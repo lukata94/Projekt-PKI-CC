@@ -39,9 +39,9 @@ public class Generator {
 	/**
 	 * Metoda wczytania z pliku prywatnego klucza CC.
 	 * @return prywatny klucz CC
-	 * @throws IOException
-	 * @throws NoSuchAlgorithmException
-	 * @throws InvalidKeySpecException
+	 * @throws IOException wyjatki IO
+	 * @throws NoSuchAlgorithmException wyjatki algorytmowe
+	 * @throws InvalidKeySpecException wyjatki klucza
 	 */
 	public PrivateKey wczytajPrywatnyKlucz() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
 		File filePrivateKey = new File("src/bin/CCprivate.key");
@@ -110,7 +110,7 @@ public class Generator {
 	/**
 	 * Funkcja hashujaca SHA3 wejsciowego stringa.
 	 * @param input wejsciowy string
-	 * @return polowa funkcji skrotu ktora posluzy do wygenerowania 192-bitowego klucza
+	 * @return 16 bajtow funkcji skrotu ktora posluzy do wygenerowania 128-bitowego klucza
 	 */
     public String sha3(String input){
         String hash="";
@@ -119,10 +119,10 @@ public class Generator {
           DigestSHA3 md=new DigestSHA3(256);
           md.update(input.getBytes("UTF-8"));
           byte[] mdbytes = md.digest();
-          byte[] key = new byte[mdbytes.length /2];
+          byte[] key = new byte[16];
 
-          for(int I = 0; I < key.length; I++){
-              // bierzemy polowe hashu
+          for(int I = 0; I < 16; I++){
+              // bierzemy pierwsze 16 bajtow
               key[I] = mdbytes[I];
           }         
           hash = bytesToHex(key);
